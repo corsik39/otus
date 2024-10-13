@@ -1,0 +1,20 @@
+{
+  "name": "igor/otus",
+  "type": "library",
+  "scripts": {
+    "test": "phpunit tests"
+  },
+  "autoload": {
+    "psr-4": {
+      "Php\\Package\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Php\\Package\\Tests\\": "tests"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.4"
+  }
+}
