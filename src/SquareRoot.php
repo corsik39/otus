@@ -1,13 +1,15 @@
 <?php
 
+namespace Php\Package;
+
 final class SquareRoot
 {
-	public function solve($a, $b, $c, $e = 1e-5)
+	public function calculate($a, $b, $c, $e = 1e-5)
 	{
 		// Проверка, что коэффициент 'a' не равен нулю
 		if (abs($a) <= $e)
 		{
-			throw new InvalidArgumentException("Коэффициент 'a' не должен быть равен нулю.");
+			throw new \InvalidArgumentException("Коэффициент 'a' не должен быть равен нулю.");
 		}
 
 		// Вычисляем дискриминант
