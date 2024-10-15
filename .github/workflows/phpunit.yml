@@ -1,4 +1,4 @@
-name: CI-latest
+name: CI
 
 on: [ push ]
 
@@ -8,16 +8,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
       - uses: php-actions/composer@v6
 
       - name: PHPUnit Tests
         uses: php-actions/phpunit@master
-        env:
-          TEST_NAME: Otus
         with:
-          version: 9.6
-          php_version: 8.3
+          version: 11.4
+          php_version: 8.2
           bootstrap: vendor/autoload.php
           configuration: phpunit.xml
           args: --coverage-text
