@@ -20,5 +20,7 @@ jobs:
           php_version: 8.2
           bootstrap: vendor/autoload.php
           configuration: phpunit.xml
-          php_extensions: "xdebug"
+          php_extensions: xdebug
           coverage_clover: "coverage/clover.xml"
+        env:
+          XDEBUG_MODE: coverage
