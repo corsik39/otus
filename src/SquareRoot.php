@@ -15,6 +15,16 @@ final class SquareRoot
 		// Вычисляем дискриминант
 		$discriminant = $b ** 2 - 4 * $a * $c;
 
+		// Проверка на NaN
+		if (is_nan($discriminant)) {
+			throw new \RuntimeException("Дискриминант является NaN, проверьте входные данные.");
+		}
+
+		// Проверка на бесконечность
+		if (is_infinite($discriminant)) {
+			throw new \RuntimeException("Дискриминант является бесконечностью, проверьте входные данные.");
+		}
+
 		// Если дискриминант меньше нуля с учетом эпсилон, корней нет
 		if ($discriminant < -$e)
 		{
