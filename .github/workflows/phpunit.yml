@@ -1,16 +1,17 @@
 name: CI
-on:
-  push:
-    branches: [ "main" ]
 
 jobs:
   build-test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-
+      - uses: actions/checkout@v3
       - uses: php-actions/composer@v6
 
-      - name: Run test suite
-        run: composer run-script test
+      - name: PHPUnit Tests
+        uses: php-actions/phpunit@master
+        with:
+          version: 11.4
+          php_version: 8.2
+          bootstrap: vendor/autoload.php
+          configuration: phpunit.xml
