@@ -8,7 +8,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install composer and dependencies
         uses: php-actions/composer@v6
@@ -21,6 +21,13 @@ jobs:
           bootstrap: vendor/autoload.php
           configuration: phpunit.xml
           php_extensions: xdebug
-          coverage_clover: "coverage/clover.xml"
+          coverage_clover: ./coverage.xml
         env:
           XDEBUG_MODE: coverage
+
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          verbose: true
