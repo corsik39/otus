@@ -1,6 +1,6 @@
 <?php
 
-namespace Php\Package;
+namespace App;
 
 final class SquareRoot
 {

@@ -6,12 +6,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Php\\Package\\": "src"
+      "App\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Php\\Package\\Tests\\": "tests"
+      "App\\Tests\\": "tests"
     }
   },
   "require-dev": {
