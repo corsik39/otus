@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class SquareRootTest extends TestCase
 {
-	private $quadratic;
+	private SquareRoot $quadratic;
 
 	public function testNoRoots(): void
 	{
