@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\hm1;
 
 final class SquareRoot
 {
-	public function calculate($a, $b, $c, $e = 1e-5)
+	public function calculate(float $a, float $b, float $c, float $e = 1e-5): ?array
 	{
 		// Проверка, что коэффициент 'a' не равен нулю
 		if (abs($a) <= $e)
@@ -16,12 +16,14 @@ final class SquareRoot
 		$discriminant = $b ** 2 - 4 * $a * $c;
 
 		// Проверка на NaN
-		if (is_nan($discriminant)) {
+		if (is_nan($discriminant))
+		{
 			throw new \RuntimeException("Дискриминант является NaN, проверьте входные данные.");
 		}
 
 		// Проверка на бесконечность
-		if (is_infinite($discriminant)) {
+		if (is_infinite($discriminant))
+		{
 			throw new \RuntimeException("Дискриминант является бесконечностью, проверьте входные данные.");
 		}
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\hm1;
 
-use App\SquareRoot;
+use App\hm1\SquareRoot;
 use PHPUnit\Framework\TestCase;
 
 class SquareRootTest extends TestCase
@@ -46,6 +46,27 @@ class SquareRootTest extends TestCase
 	{
 		$this->expectException(\RuntimeException::class);
 		$this->quadratic->calculate(INF, 2, 1);
+	}
+
+	public function testSpecialValues(): void
+	{
+		$this->expectException(\RuntimeException::class);
+		$this->quadratic->calculate(NAN, 2, 1);
+
+		$this->expectException(\RuntimeException::class);
+		$this->quadratic->calculate(INF, 2, 1);
+
+		$this->expectException(\RuntimeException::class);
+		$this->quadratic->calculate(1, NAN, 1);
+
+		$this->expectException(\RuntimeException::class);
+		$this->quadratic->calculate(1, INF, 1);
+
+		$this->expectException(\RuntimeException::class);
+		$this->quadratic->calculate(1, 2, NAN);
+
+		$this->expectException(\RuntimeException::class);
+		$this->quadratic->calculate(1, 2, INF);
 	}
 
 	protected function setUp(): void
