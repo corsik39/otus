@@ -2,6 +2,7 @@
   "name": "igor/otus",
   "type": "library",
   "scripts": {
+    "test": "phpunit tests",
     "test-report": "phpunit --coverage-html coverage-report tests"
   },
   "autoload": {
