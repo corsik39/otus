@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\hm1;
+namespace App\Tests\Hm1;
 
-use App\hm1\SquareRoot;
+use App\Hm1\SquareRoot;
 use PHPUnit\Framework\TestCase;
 
 class SquareRootTest extends TestCase

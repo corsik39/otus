@@ -1,6 +1,6 @@
 <?php
 
-namespace App\hm1;
+namespace App\Hm1;
 
 final class SquareRoot
 {
