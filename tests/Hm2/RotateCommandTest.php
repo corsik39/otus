@@ -5,14 +5,14 @@ namespace App\Tests\Hm2;
 use App\Hm2\Adapter\RotatingObjectAdapter;
 use App\Hm2\Angle;
 use App\Hm2\Command\RotateCommand;
-use App\Mock\GameObjectMock;
+use App\Hm2\GameObject;
 use PHPUnit\Framework\TestCase;
 
 class RotateCommandTest extends TestCase
 {
 	public function testRotateCommand(): void
 	{
-		$gameObject = new GameObjectMock();
+		$gameObject = new GameObject();
 		$gameObject->setProperty('angle', new Angle(0, 360));
 		$gameObject->setProperty('angularVelocity', new Angle(90, 360));
 
@@ -31,7 +31,7 @@ class RotateCommandTest extends TestCase
 
 	public function testRotateCommandWithFullCircle(): void
 	{
-		$gameObject = new GameObjectMock();
+		$gameObject = new GameObject();
 		$gameObject->setProperty('angle', new Angle(350, 360));
 		$gameObject->setProperty('angularVelocity', new Angle(20, 360));
 

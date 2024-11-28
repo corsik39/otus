@@ -4,10 +4,10 @@ namespace App\Tests\Hm5;
 
 use App\Hm2\Adapter\MovingObjectAdapter;
 use App\Hm2\Command\MoveCommand;
+use App\Hm2\GameObject;
 use App\Hm2\Vector;
 use App\Hm5\Ioc;
-use App\Mock\GameObjectMock;
-use App\Mock\IocInitRegistryMock;
+use App\Hm5\IocInit;
 use PHPUnit\Framework\TestCase;
 
 class IoCTest extends TestCase
@@ -18,8 +18,8 @@ class IoCTest extends TestCase
 		Ioc::resolve('Scopes.New', 'scope1')->execute();
 
 		// Регистрируем зависимость в текущем скоупе
-		Ioc::resolve('IoC.Register', 'MoveCommand', static function () {
-			$gameObject = new GameObjectMock();
+		Ioc::resolve('IoC.Register', 'TestMove', static function () {
+			$gameObject = new GameObject();
 			$gameObject->setProperty('location', new Vector(12, 5));
 			$gameObject->setProperty('velocity', new Vector(-7, 3));
 
@@ -31,7 +31,7 @@ class IoCTest extends TestCase
 		})->execute();
 
 		// Разрешаем зависимость
-		$newLocation = Ioc::resolve('MoveCommand', []);
+		$newLocation = Ioc::resolve('TestMove', []);
 		$this->assertEquals([5, 8], [$newLocation->getX(), $newLocation->getY()]);
 
 	}
@@ -51,13 +51,13 @@ class IoCTest extends TestCase
 	{
 		//Проверяем что в scope1 MoveCommand существует
 		Ioc::resolve('Scopes.Current', 'scope1')->execute();
-		$hasDependency = Ioc::hasDependency('MoveCommand');
+		$hasDependency = Ioc::hasDependency('TestMove');
 
 		$this->assertTrue($hasDependency);
 	}
 
 	protected function setUp(): void
 	{
-		IocInitRegistryMock::init();
+		IocInit::registry();
 	}
 }

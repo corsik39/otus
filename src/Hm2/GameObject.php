@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Mock;
+namespace App\Hm2;
 
 use App\Hm2\interface\IGameObject;
 
-class GameObjectMock implements IGameObject
+class GameObject implements IGameObject
 {
 	private array $properties = [];
 

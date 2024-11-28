@@ -16,7 +16,7 @@ class Ioc
 			return CommandRegistry::get($key, ...$args);
 		}
 
-		return self::resolveDependency($key, $args);
+		return self::resolveDependency($key, ...$args);
 	}
 
 	public static function registerScope($scopeId): void
@@ -48,11 +48,11 @@ class Ioc
 		return self::$currentScope && isset(self::$scopes[self::$currentScope][$dependencyKey]);
 	}
 
-	private static function resolveDependency($dependencyKey, $args)
+	private static function resolveDependency($dependencyKey, ...$args)
 	{
 		if (self::hasDependency($dependencyKey))
 		{
-			return call_user_func(self::$scopes[self::$currentScope][$dependencyKey], $args);
+			return call_user_func(self::$scopes[self::$currentScope][$dependencyKey], ...$args);
 		}
 
 		throw new \RuntimeException("Dependency {$dependencyKey} not found.");

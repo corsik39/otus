@@ -4,27 +4,27 @@ namespace App\Hm3\Handler;
 
 use App\Hm2\Command\ICommand;
 use App\Hm3\Command\LogCommand;
-use Exception;
+use App\Hm3\Command\RetryCommand;
+use App\Hm5\Ioc;
 
 class ExceptionHandler
 {
-	private static array $handlersIoc = [];
-
-	public static function register($commandType, $exceptionType, callable $handler)
+	public function handleRetryAndLog(ICommand $command, \Exception $exception, bool $retry = false): void
 	{
-		self::$handlers[$commandType][$exceptionType] = $handler;
-	}
-
-	public static function handle(ICommand $command, Exception $exception)
-	{
-		$commandType = get_class($command);
-		$exceptionType = get_class($exception);
-
-		if (isset(self::$handlers[$commandType][$exceptionType]))
+		if ($retry)
 		{
-			return call_user_func(self::$handlers[$commandType][$exceptionType], $command, $exception);
+			try
+			{
+				(new RetryCommand($command))->execute();
+			}
+			catch (\RuntimeException $exception)
+			{
+				Ioc::resolve('ExceptionHandler.handleRetryAndLog', $command, $exception, false);
+			}
 		}
-
-		return new LogCommand($exception);
+		else
+		{
+			(new LogCommand($exception))->execute();
+		}
 	}
 }

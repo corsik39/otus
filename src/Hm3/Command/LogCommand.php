@@ -3,20 +3,20 @@
 namespace App\Hm3\Command;
 
 use App\Hm2\Command\ICommand;
-use Exception;
+use App\Hm3\Logs;
 
 class LogCommand implements ICommand
 {
-	private $exception;
+	private array $logs;
+	private \Exception $exception;
 
-	public function __construct(Exception $exception)
+	public function __construct(\Exception $exception)
 	{
 		$this->exception = $exception;
 	}
 
 	public function execute(): void
 	{
-		// Записываем информацию об исключении в лог
-		error_log($this->exception->getMessage());
+		Logs::getInstance()->add($this->exception->getMessage());
 	}
 }

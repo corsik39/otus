@@ -4,8 +4,8 @@ namespace App\Tests\Hm2;
 
 use App\Hm2\Adapter\MovingObjectAdapter;
 use App\Hm2\Command\MoveCommand;
+use App\Hm2\GameObject;
 use App\Hm2\Vector;
-use App\Mock\GameObjectMock;
 use Exception;
 use PHPUnit\Framework\TestCase;
 
@@ -13,7 +13,7 @@ class MoveCommandTest extends TestCase
 {
 	public function testMoveCommand(): void
 	{
-		$gameObject = new GameObjectMock();
+		$gameObject = new GameObject();
 		$gameObject->setProperty('location', new Vector(12, 5));
 		$gameObject->setProperty('velocity', new Vector(-7, 3)); // Correct velocity vector
 
@@ -30,7 +30,7 @@ class MoveCommandTest extends TestCase
 		$this->expectException(Exception::class);
 		$this->expectExceptionMessage("Unable to read location.");
 
-		$gameObject = new GameObjectMock();
+		$gameObject = new GameObject();
 		$gameObject->setProperty('velocity', new Vector(-7, 3));
 
 		$adapter = new MovingObjectAdapter($gameObject);
@@ -43,7 +43,7 @@ class MoveCommandTest extends TestCase
 		$this->expectException(Exception::class);
 		$this->expectExceptionMessage("Unable to read velocity.");
 
-		$gameObject = new GameObjectMock();
+		$gameObject = new GameObject();
 		$gameObject->setProperty('location', new Vector(12, 5));
 
 		$adapter = new MovingObjectAdapter($gameObject);
@@ -56,7 +56,7 @@ class MoveCommandTest extends TestCase
 		$this->expectException(Exception::class);
 		$this->expectExceptionMessage("Cannot modify location.");
 
-		$gameObject = new class extends GameObjectMock {
+		$gameObject = new class extends GameObject {
 			public function setProperty(string $string, $value): void
 			{
 				if ($string === 'location')
