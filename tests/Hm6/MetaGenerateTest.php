@@ -17,6 +17,8 @@ class MetaGenerateTest extends TestCase
 {
 	public function testAdapterGeneration(): void
 	{
+		eval($this->adapterRotate);
+
 		$this->gameObject->setProperty('angle', new Angle(0, 360));
 		$this->gameObject->setProperty('angularVelocity', new Angle(90, 360));
 
@@ -37,6 +39,8 @@ class MetaGenerateTest extends TestCase
 
 	public function testAdapterMoveCommand(): void
 	{
+		eval($this->adapterMove);
+
 		$this->gameObject->setProperty('location', new Vector(12, 5));
 		$this->gameObject->setProperty('velocity', new Vector(-7, 3)); // Correct velocity vector
 
@@ -55,8 +59,5 @@ class MetaGenerateTest extends TestCase
 		$this->gameObject = new GameObject();
 		$this->adapterMove = AdapterGenerator::generateAdapter(IMovingObject::class);
 		$this->adapterRotate = AdapterGenerator::generateAdapter(IRotatingObject::class);
-
-		eval($this->adapterMove);
-		eval($this->adapterRotate);
 	}
 }
