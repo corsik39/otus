@@ -2,7 +2,7 @@
 
 namespace App\Hm2\Command;
 
-use App\Hm2\interface\IMovingObject;
+use App\Hm2\Interface\IMovingObject;
 use App\Hm2\Vector;
 
 class MoveCommand implements ICommand

@@ -3,7 +3,7 @@
 namespace App\Hm2\Command;
 
 use App\Hm2\Angle;
-use App\Hm2\interface\IRotatingObject;
+use App\Hm2\Interface\IRotatingObject;
 
 class RotateCommand implements ICommand
 {

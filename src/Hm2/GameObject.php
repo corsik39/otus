@@ -2,7 +2,7 @@
 
 namespace App\Hm2;
 
-use App\Hm2\interface\IGameObject;
+use App\Hm2\Interface\IGameObject;
 
 class GameObject implements IGameObject
 {

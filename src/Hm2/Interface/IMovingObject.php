@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Hm2\interface;
+namespace App\Hm2\Interface;
 
 use App\Hm2\Vector;
 

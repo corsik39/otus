@@ -3,8 +3,8 @@
 namespace App\Hm2\Adapter;
 
 use App\Hm2\Angle;
-use App\Hm2\interface\IGameObject;
-use App\Hm2\interface\IRotatingObject;
+use App\Hm2\Interface\IGameObject;
+use App\Hm2\Interface\IRotatingObject;
 use Exception;
 
 class RotatingObjectAdapter implements IRotatingObject
