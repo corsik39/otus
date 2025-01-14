@@ -10,6 +10,7 @@ class CommandQueue
 	private static array $instances = [];
 	private array $queue = [];
 	private bool $running = false;
+	private bool $softStopping = false;
 
 	public static function getInstance(): CommandQueue
 	{
@@ -25,6 +26,8 @@ class CommandQueue
 	public function enqueue(ICommand $command): void
 	{
 		$this->queue[] = $command;
+		// Если добавлена новая команда, отменяем мягкую остановку
+		$this->softStopping = false;
 	}
 
 	public function dequeue(): ?ICommand
@@ -51,11 +54,12 @@ class CommandQueue
 	public function stopHard(): void
 	{
 		$this->running = false;
+		$this->softStopping = false;
 	}
 
 	public function stopSoft(): void
 	{
-		$this->running = $this->isEmpty();
+		$this->softStopping = true;
 	}
 
 	public function isRunning(): bool
@@ -65,21 +69,37 @@ class CommandQueue
 
 	private function runQueue(): void
 	{
-		while ($this->running && !$this->isEmpty())
+		while ($this->running)
 		{
-			$command = $this->dequeue();
-			if ($command)
+			while (!$this->isEmpty())
 			{
-				try
+				$command = $this->dequeue();
+				if ($command)
 				{
-					$command->execute();
-				}
-				catch (\Exception $exception)
-				{
-					Ioc::resolve('CommandQueueException.add', Ioc::resolve('LogCommand', $exception));
+					try
+					{
+						$command->execute();
+					}
+					catch (\Exception $exception)
+					{
+						Ioc::resolve('CommandQueueException.add', Ioc::resolve('LogCommand', $exception));
+					}
 				}
 			}
+
+			if ($this->softStopping)
+			{
+				usleep(500000);
+
+				if ($this->isEmpty())
+				{
+					$this->running = false;
+				}
+			}
+			else
+			{
+				$this->running = false;
+			}
 		}
-		$this->stopSoft();
 	}
 }

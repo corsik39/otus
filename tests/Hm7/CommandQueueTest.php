@@ -53,9 +53,9 @@ class CommandQueueTest extends TestCase
 		Ioc::resolve('CommandQueue.add', Ioc::resolve('MoveCommand', $this->movingAdapter)); //exception to log
 		Ioc::resolve('ReceiveMessage', $this->mockRotateJson);
 		Ioc::resolve('StartCommand', $queue);
+		Ioc::resolve('StopSoftCommand', $queue);
 		Ioc::resolve('ReceiveMessage', $this->mockMoveJson);
 		Ioc::resolve('ReceiveMessage', $this->mockRotateJson);
-		Ioc::resolve('StopSoftCommand', $queue);
 
 		$this->assertFalse($queue->isRunning());
 		$this->assertFalse($queue->isEmpty());
