@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests\Hm8;
+
 use App\Hm2\Command\MoveCommand;
 use App\Hm5\Ioc;
 use App\Hm5\IocInit;

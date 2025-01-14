@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests\Hm3;
+
 use App\Hm2\Adapter\MovingObjectAdapter;
 use App\Hm2\GameObject;
 use App\Hm2\IocBattle;
@@ -11,6 +13,7 @@ use App\Hm3\Logs;
 use App\Hm5\Ioc;
 use App\Hm5\IocInit;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 class CommandExceptionTest extends TestCase
 {
@@ -36,7 +39,7 @@ class CommandExceptionTest extends TestCase
 		}
 		catch (\Exception $exception)
 		{
-			$queue = Ioc::resolve('CommandQueue.add', Ioc::resolve('LogCommand', $exception));
+			$queue = Ioc::resolve('CommandQueueException.add', Ioc::resolve('LogCommand', $exception));
 
 			$this->assertFalse($queue->isEmpty());
 			$this->assertInstanceOf(LogCommand::class, $queue->dequeue());

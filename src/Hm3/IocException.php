@@ -3,8 +3,9 @@
 namespace App\Hm3;
 
 use App\Hm2\Command\ICommand;
-use App\Hm3\Command\CommandQueue;
 use App\Hm3\Command\LogCommand;
+use App\Hm3\Command\Queue\CommandQueue;
+use App\Hm3\Command\Queue\CommandQueueException;
 use App\Hm3\Command\RetryCommand;
 use App\Hm3\Handler\ExceptionHandler;
 use App\Hm5\interface\IIocRegistry;
@@ -22,8 +23,23 @@ class IocException implements IIocRegistry
 			return CommandQueue::getInstance();
 		})->execute();
 
+		Ioc::resolve('IoC.Register', 'CommandQueueException', static function () {
+			return CommandQueueException::getInstance();
+		})->execute();
+
 		Ioc::resolve('IoC.Register', 'CommandQueue.add', static function (ICommand $command) {
 			$queue = CommandQueue::getInstance();
+			$queue->enqueue($command);
+
+			return $queue;
+		})->execute();
+
+		Ioc::resolve('IoC.Register', 'CommandQueueException', static function () {
+			return CommandQueueException::getInstance();
+		})->execute();
+
+		Ioc::resolve('IoC.Register', 'CommandQueueException.add', static function (ICommand $command) {
+			$queue = CommandQueueException::getInstance();
 			$queue->enqueue($command);
 
 			return $queue;

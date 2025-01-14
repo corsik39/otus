@@ -5,6 +5,7 @@ namespace App\Hm8;
 use App\Hm2\Command\ICommand;
 use App\Hm2\GameObject;
 use App\Hm2\IocBattle;
+use App\Hm3\IocException;
 use App\Hm5\Ioc;
 
 class InterpretCommand
@@ -15,6 +16,7 @@ class InterpretCommand
 	public function __construct(IncomingMessageDto $incomingMessage)
 	{
 		IocBattle::registry();
+		IocException::registry();
 
 		$this->gameObject = new GameObject();
 		$this->incomingMessage = $incomingMessage;

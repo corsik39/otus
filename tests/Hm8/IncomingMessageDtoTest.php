@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests\Hm8;
+
 use App\Hm8\IncomingMessageDto;
 use PHPUnit\Framework\TestCase;
 

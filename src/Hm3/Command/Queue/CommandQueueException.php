@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Hm3\Command;
+namespace App\Hm3\Command\Queue;
 
 use App\Hm2\Command\ICommand;
 
-class CommandQueue
+class CommandQueueException
 {
 	private static array $instances = [];
 	private array $queue = [];
 
-	public static function getInstance(): CommandQueue
+	public static function getInstance(): CommandQueueException
 	{
 		$self = static::class;
 		if (!isset(self::$instances[$self]))
