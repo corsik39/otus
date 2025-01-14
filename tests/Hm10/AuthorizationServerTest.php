@@ -4,7 +4,6 @@ namespace App\Tests\Hm10;
 
 use App\Hm10\AuthorizationServer;
 use App\Hm10\GameServer;
-use App\Hm5\Ioc;
 use App\Hm5\IocInit;
 use App\Hm8\IocGameController;
 use PHPUnit\Framework\TestCase;
@@ -80,7 +79,7 @@ class AuthorizationServerTest extends TestCase
 
 	public function testReceiveMessageWithInvalidToken(): void
 	{
-		$gameController = new GameServer(new AuthorizationServer());
+		$gameController = new GameServer();
 		$invalidToken = 'invalid.jwt.token';
 
 		$jsonMessage = $this->createPayload('invalid_gameId');
