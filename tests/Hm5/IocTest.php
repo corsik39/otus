@@ -10,7 +10,7 @@ use App\Hm5\Ioc;
 use App\Hm5\IocInit;
 use PHPUnit\Framework\TestCase;
 
-class IoCTest extends TestCase
+class IocTest extends TestCase
 {
 	public function testContainer()
 	{

@@ -22,7 +22,7 @@ class CommandQueueTest extends TestCase
 
 		$this->assertTrue($queue->isEmpty());
 		$this->assertInstanceOf(LogCommand::class, $queueException->dequeue());
-		$this->assertTrue($queue->isRunning());
+		$this->assertFalse($queue->isRunning());
 	}
 
 	public function testStopHardCommand(): void
@@ -54,11 +54,9 @@ class CommandQueueTest extends TestCase
 		Ioc::resolve('ReceiveMessage', $this->mockRotateJson);
 		Ioc::resolve('StartCommand', $queue);
 		Ioc::resolve('StopSoftCommand', $queue);
-		Ioc::resolve('ReceiveMessage', $this->mockMoveJson);
-		Ioc::resolve('ReceiveMessage', $this->mockRotateJson);
 
 		$this->assertFalse($queue->isRunning());
-		$this->assertFalse($queue->isEmpty());
+		$this->assertTrue($queue->isEmpty());
 	}
 
 	public function addCommands(): void

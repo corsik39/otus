@@ -89,8 +89,6 @@ class CommandQueue
 
 			if ($this->softStopping)
 			{
-				usleep(500000);
-
 				if ($this->isEmpty())
 				{
 					$this->running = false;

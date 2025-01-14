@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class GameControllerTest extends TestCase
 {
-	public function testInterpretCommand()
+	public function testInterpretCommand(): void
 	{
 		Ioc::resolve(
 			'InterpretCommand',
@@ -26,6 +26,9 @@ class GameControllerTest extends TestCase
 		$this->assertEquals(['status' => 'success'], $response);
 		$queue = Ioc::resolve('CommandQueue');
 		$this->assertInstanceOf(MoveCommand::class, $queue->dequeue());
+		Ioc::resolve('StartCommand', $queue);
+		$this->assertFalse($queue->isRunning());
+		$this->assertTrue($queue->isEmpty());
 	}
 
 	public function setUp(): void
