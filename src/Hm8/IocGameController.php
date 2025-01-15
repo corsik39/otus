@@ -20,7 +20,7 @@ class IocGameController implements IIocRegistry
 			return new IncomingMessageDto($jsonData);
 		})->execute();
 
-		Ioc::resolve('IoC.Register', 'ReceiveMessage', static function ($jsonData) {
+		Ioc::resolve('IoC.Register', 'ReceiveMessage', static function (string $jsonData) {
 			return (new GameController())->receiveMessage($jsonData);
 		})->execute();
 

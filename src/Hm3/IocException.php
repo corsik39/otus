@@ -50,7 +50,7 @@ class IocException implements IIocRegistry
 		})->execute();
 
 		Ioc::resolve('IoC.Register', 'ExceptionHandler.addRetry', static function (ICommand $command) {
-			$queue = Ioc::resolve('CommandQueue');
+			$queue = Ioc::resolve('CommandQueueException');
 			$queue->enqueue(new RetryCommand($command));
 
 			return $queue;
