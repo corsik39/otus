@@ -8,9 +8,9 @@ use App\Hm5\Ioc;
 class CommandQueue
 {
 	private static array $instances = [];
+	protected bool $softStopping = false;
+	protected bool $running = false;
 	private array $queue = [];
-	private bool $running = false;
-	private bool $softStopping = false;
 
 	public static function getInstance(): CommandQueue
 	{
@@ -26,7 +26,6 @@ class CommandQueue
 	public function enqueue(ICommand $command): void
 	{
 		$this->queue[] = $command;
-		// Если добавлена новая команда, отменяем мягкую остановку
 		$this->softStopping = false;
 	}
 
@@ -67,7 +66,7 @@ class CommandQueue
 		return $this->running;
 	}
 
-	private function runQueue(): void
+	protected function runQueue(): void
 	{
 		while ($this->running)
 		{
