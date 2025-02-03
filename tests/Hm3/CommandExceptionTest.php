@@ -7,6 +7,7 @@ use App\Hm2\GameObject;
 use App\Hm2\IocBattle;
 use App\Hm2\Vector;
 use App\Hm3\Command\LogCommand;
+use App\Hm3\Command\Queue\CommandQueueException;
 use App\Hm3\Command\RetryCommand;
 use App\Hm3\IocException;
 use App\Hm3\Logs;
@@ -25,7 +26,7 @@ class CommandExceptionTest extends TestCase
 		}
 		catch (\Exception $exception)
 		{
-			Ioc::resolve('LogCommand', $exception)->execute();;
+			Ioc::resolve('LogCommand', $exception)->execute();
 			$this->assertContains("Unable to read location.", Logs::getInstance()->getLogs());
 		}
 	}

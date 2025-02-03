@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests\Hm11;
+
 use App\Hm11\Command\MoveToCommand;
 use App\Hm11\Command\RunCommand;
 use App\Hm11\State\MoveToState;
