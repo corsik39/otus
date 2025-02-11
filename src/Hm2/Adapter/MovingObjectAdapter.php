@@ -2,6 +2,7 @@
 
 namespace App\Hm2\Adapter;
 
+use App\Hm12\GameFieldManager;
 use App\Hm2\Interface\IGameObject;
 use App\Hm2\Interface\IMovingObject;
 use App\Hm2\Vector;
@@ -42,6 +43,7 @@ class MovingObjectAdapter implements IMovingObject
 	{
 		try
 		{
+			$this->gameObject->getGameFieldManager()?->updateObjectPosition($this->gameObject, $newLocation);
 			$this->gameObject->setProperty('location', $newLocation);
 		}
 		catch (Exception $e)

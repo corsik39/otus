@@ -39,4 +39,9 @@ class CommandQueueException
 	{
 		return $this->queue;
 	}
+
+	public function clear(): void
+	{
+		$queue = [];
+	}
 }
