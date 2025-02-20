@@ -7,9 +7,9 @@ use App\Hm5\Scopes\CommandRegistry;
 class Ioc
 {
 	public static array $scopes = [];
-	public static string $currentScope;
+	public static ?string $currentScope = null;
 
-	public static function resolve($key, ...$args)
+	public static function resolve(string $key, ...$args): mixed
 	{
 		if (CommandRegistry::has($key))
 		{
@@ -19,13 +19,17 @@ class Ioc
 		return self::resolveDependency($key, ...$args);
 	}
 
-	public static function registerScope($scopeId): void
+	public static function registerScope(string $scopeId): void
 	{
-		self::$scopes[$scopeId] = [];
+		if (!isset(self::$scopes[$scopeId]))
+		{
+			self::$scopes[$scopeId] = [];
+		}
+
 		self::$currentScope = $scopeId;
 	}
 
-	public static function setCurrentScope($scopeId): void
+	public static function setCurrentScope(string $scopeId): void
 	{
 		if (!isset(self::$scopes[$scopeId]))
 		{
@@ -34,7 +38,7 @@ class Ioc
 		self::$currentScope = $scopeId;
 	}
 
-	public static function addDependency($scopeId, $dependency, callable $resolver): void
+	public static function addDependency(string $scopeId, string $dependency, callable $resolver): void
 	{
 		if (!isset(self::$scopes[$scopeId]))
 		{
@@ -43,12 +47,23 @@ class Ioc
 		self::$scopes[$scopeId][$dependency] = $resolver;
 	}
 
-	public static function hasDependency($dependencyKey): bool
+	public static function hasDependency(string $dependencyKey): bool
 	{
-		return self::$currentScope && isset(self::$scopes[self::$currentScope][$dependencyKey]);
+		return isset(self::$scopes[self::$currentScope][$dependencyKey]);
 	}
 
-	private static function resolveDependency($dependencyKey, ...$args)
+	public static function reset(): void
+	{
+		self::$scopes = [];
+		self::$currentScope = null;
+	}
+
+	public static function isScopeRegistered(string $scopeId): bool
+	{
+		return isset(self::$scopes[$scopeId]);
+	}
+
+	private static function resolveDependency(string $dependencyKey, ...$args): mixed
 	{
 		if (self::hasDependency($dependencyKey))
 		{
