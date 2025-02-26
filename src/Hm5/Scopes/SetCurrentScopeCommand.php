@@ -18,7 +18,7 @@ class SetCurrentScopeCommand implements ICommand
 
 	public function execute(): void
 	{
-		if ($this->createNew)
+		if ($this->createNew || !Ioc::hasScope($this->scopeId))
 		{
 			Ioc::registerScope($this->scopeId);
 		}
