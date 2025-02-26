@@ -2,7 +2,6 @@
 
 namespace App\Hm2\Adapter;
 
-use App\Hm12\GameFieldManager;
 use App\Hm2\Interface\IGameObject;
 use App\Hm2\Interface\IMovingObject;
 use App\Hm2\Vector;

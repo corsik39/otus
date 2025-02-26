@@ -48,6 +48,21 @@ class Ioc
 		return self::$currentScope && isset(self::$scopes[self::$currentScope][$dependencyKey]);
 	}
 
+	public static function hasScope($scopeId): bool
+	{
+		return isset(self::$scopes[$scopeId]);
+	}
+
+	public static function getCurrentScopeId(): string
+	{
+		return self::$currentScope;
+	}
+
+	public static function getCurrentScope(): array
+	{
+		return self::$scopes[self::getCurrentScopeId()];
+	}
+
 	private static function resolveDependency($dependencyKey, ...$args)
 	{
 		if (self::hasDependency($dependencyKey))

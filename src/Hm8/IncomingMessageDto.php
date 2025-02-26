@@ -9,6 +9,7 @@ class IncomingMessageDto
 	public string $messageType;
 	public string $gameId;
 	public string $objectId;
+	public ?string $userId;
 	public string $operationId;
 	public array $parameters;
 
@@ -27,6 +28,7 @@ class IncomingMessageDto
 		$this->timestamp = $data['header']['timestamp'];
 		$this->messageType = $data['header']['messageType'];
 		$this->gameId = $data['body']['gameId'];
+		$this->userId = $data['body']['userId'] ?? null;
 		$this->objectId = $data['body']['objectId'];
 		$this->operationId = $data['body']['operation']['id'];
 		$this->parameters = $data['body']['operation']['parameters'];

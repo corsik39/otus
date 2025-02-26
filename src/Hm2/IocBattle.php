@@ -2,6 +2,7 @@
 
 namespace App\Hm2;
 
+use App\Hm13\ShootCommand;
 use App\Hm2\Adapter\MovingObjectAdapter;
 use App\Hm2\Adapter\RotatingObjectAdapter;
 use App\Hm2\Command\MoveCommand;
@@ -42,6 +43,10 @@ class IocBattle implements IIocRegistry
 
 		Ioc::resolve('IoC.Register', 'Vector', static function (float $x, float $y) {
 			return new Vector($x, $y);
+		})->execute();
+
+		Ioc::resolve('IoC.Register', 'Shoot', static function () {
+			return new ShootCommand();
 		})->execute();
 	}
 }

@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class IncomingMessageDtoTest extends TestCase
 {
-	public function testValidJsonData()
+	public function testValidJsonData(): void
 	{
 		$jsonData = json_encode([
 			'header' => [
@@ -73,7 +73,7 @@ class IncomingMessageDtoTest extends TestCase
 			, $dto->parameters);
 	}
 
-	public function testInvalidJsonData()
+	public function testInvalidJsonData(): void
 	{
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('Invalid JSON data');
@@ -82,7 +82,7 @@ class IncomingMessageDtoTest extends TestCase
 		new IncomingMessageDto($invalidJsonData);
 	}
 
-	public function testMissingFields()
+	public function testMissingFields(): void
 	{
 		$this->expectException(\InvalidArgumentException::class);
 		$this->expectExceptionMessage('The gameId field is required and must be a string.');

@@ -15,6 +15,8 @@ class InterpretCommand
 
 	public function __construct(IncomingMessageDto $incomingMessage)
 	{
+		$this->registerScope($incomingMessage);
+
 		IocBattle::registry();
 		IocException::registry();
 
@@ -22,7 +24,7 @@ class InterpretCommand
 		$this->incomingMessage = $incomingMessage;
 	}
 
-	public function execute()
+	public function execute(): void
 	{
 		$command = $this->createCommand();
 
@@ -30,7 +32,15 @@ class InterpretCommand
 		{
 			Ioc::resolve('CommandQueue.add', $command);
 		}
+	}
 
+	private function registerScope($incomingMessage): void
+	{
+		$userId = $incomingMessage->userId;
+		if ($userId)
+		{
+			Ioc::resolve('Scopes.New', $incomingMessage->userId)->execute();
+		}
 	}
 
 	private function createCommand(): ?ICommand
